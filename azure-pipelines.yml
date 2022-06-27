@@ -10,12 +10,21 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: NodeTool@0
+# - task: NodeTool@0
+#   inputs:
+#     versionSpec: '10.x'
+#   displayName: 'Install Node.js'
+
+- task: AzureAppConfigurationPush@3
   inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+    azureSubscription: 'Liftr-Nginx-Test(e3853e83-0d02-4fb3-b88f-05b5fd21aee2)'
+    AppConfigurationEndpoint: 'nginx'
+    ConfigurationFile: './testconfig.json'
+    Separator: '.'
+    Strict: false
+  displayName: 'Pushing config to somewhere...'
 
 - script: |
-    npm install
-    npm run build
+    # npm install
+    # npm run build
   displayName: 'npm install and build'
